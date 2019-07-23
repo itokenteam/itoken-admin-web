@@ -12,9 +12,8 @@ public class AdminController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = {"","login"},method = RequestMethod.GET)
+    @RequestMapping(value = {"","index"},method = RequestMethod.GET)
     public String login(){
-        System.out.println(userService.login("1","2"));
         return "index";
     }
 }
