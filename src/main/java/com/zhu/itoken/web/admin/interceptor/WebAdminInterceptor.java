@@ -3,9 +3,9 @@ package com.zhu.itoken.web.admin.interceptor;
 import com.alibaba.fastjson.JSONObject;
 import com.zhu.itoken.common.domain.User;
 import com.zhu.itoken.common.dto.CookieUtils;
+import com.zhu.itoken.common.web.intercepter.utils.HttpServerletUtils;
 import com.zhu.itoken.web.admin.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
@@ -22,7 +22,7 @@ public class WebAdminInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = CookieUtils.getCookieValue(request, "token");
         if (StringUtils.isEmpty(token)) {
-            response.sendRedirect("http://localhost:9001/login?url=http://localhost:8280");
+            response.sendRedirect(String.format("http://localhost:9001/login?url=%s", HttpServerletUtils.getFullPath(request)));
             return false;
         }
         return true;
